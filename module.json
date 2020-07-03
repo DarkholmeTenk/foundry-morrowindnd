@@ -1,0 +1,30 @@
+{
+	"name": "morrowindnd",
+	"title": "morrowindnd",
+	"description": "A module that provides some MorrowinDnD specific functionality",
+	"version": "1.0.1",
+	"author": "shane_booth",
+	"esmodules": [
+        "scripts/enchanting/enchantForm.js",
+        "scripts/enchanting/enchantTable.js",
+        "scripts/tokens/tokenLoot.js",
+        "scripts/tokens/tokenRace.js"
+	],
+	"languages": [
+		{
+			"lang": "en",
+			"name": "English",
+			"path": "lang/en.json"
+		}
+	],
+	"socket": true,
+	"minimumCoreVersion": "0.6.4",
+	"compatibleCoreVersion": "0.6.4",
+	"system": "dnd5e",
+	"styles": [
+		"./css/morrowindnd.css"
+	],
+	"url": "https://github.com/DarkholmeTenk/foundry-morrowindnd",
+	"manifest": "https://raw.githubusercontent.com/DarkholmeTenk/foundry-morrowindnd/master/module.json",
+	"download": "https://github.com/DarkholmeTenk/foundry-morrowindnd/archive/master.zip"
+}

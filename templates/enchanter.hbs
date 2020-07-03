@@ -1,0 +1,23 @@
+<form>
+	<ol>
+		<li class="flexrow">
+			<strong>{{localize "Morrowindnd.Enchanter.SpellName"}}</strong>
+			<input class="spelldrop" readonly value="{{spellName}}" />
+		</li>
+		<li class="flexrow">
+			<strong>{{localize "Morrowindnd.Enchanter.Charges"}}</strong>
+			<select class="flex2" name="charges" title="Charges">
+			{{#select charge}}
+				{{#each chargeTypes as |node nodeKey|}}
+					<option value="{{nodeKey}}">{{node.label}} - {{node.charges}} Charges</option>
+				{{/each}}
+			{{/select}}
+			</select>
+		</li>
+	</ol>
+	<footer class="form-footer">
+        <button name="submit" {{#if invalid}}disabled{{/if}} >
+            <i class="fas fa-save"></i> {{localize "Morrowindnd.Enchanter.Create"}}
+        </button>
+    </footer>
+</form>
