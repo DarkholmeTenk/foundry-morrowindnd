@@ -2,17 +2,9 @@ import { getLoggerFactory } from "../../dc-base/scripts/util.js"
 
 export const getLogger = getLoggerFactory("MorrowinDnD")
 
-export async function getRollTableItem({type, resultId, collection}) {
-	if(type == 1) {
-		return game.items.get(resultId)
-	} if(type == 2) {
-		let pack = game.packs.get(collection)
-		return await pack.getEntity(resultId)
-	}
-}
+const log = getLogger("Util")
 
 export function isEqual(a, b) {
-	console.log(a, b)
 	if(!a != !b) return false
 	let aEqual = Object.keys(a).every(key=>{
 		let aVal = a[key]

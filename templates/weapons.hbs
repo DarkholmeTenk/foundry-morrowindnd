@@ -1,9 +1,12 @@
 <form>
 	<ol>
 		{{#dc-table "rollTableIds" rowBuilder="newRollTableRow"}}
+			{{#dc-field "Morrowindnd.LootEntry.Amount"}}
+			<input name="{{prefix}}.qty" value="{{data.qty}}" />
+			{{/dc-field}}
 			{{#dc-field "Morrowindnd.LootEntry.RollTable"}}
-				<select class="flex2" name={{prefix}} title="target">
-					{{#select data}}
+				<select class="flex2" name="{{prefix}}.id" title="target">
+					{{#select data.id}}
 					<option value="">&nbsp;</option>
 					{{#each ../possibleRollTables}}
 					<option value="{{id}}">{{name}}</option>

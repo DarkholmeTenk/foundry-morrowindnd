@@ -12,6 +12,8 @@ Hooks.on("createTokenMutate", async (update, {token})=>{
 		let image = token.img.replace(/.*\//, "")
 		let update = Object.keys(races).find((race)=>image.indexOf(race) !== -1)
 		log.debug("Matching races", image, update)
-		return update ? races[update] : {}
+		let updateData = update ? races[update] : {}
+		updateData["actorData.img"] = token.img
+		return updateData
 	})
 })

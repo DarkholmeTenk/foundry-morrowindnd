@@ -1,0 +1,15 @@
+<form>
+	<ol>
+		{{#dc-field "Morrowindnd.LootEntry.RollTable"}}
+			<select class="flex2" name="tableId" title="target">
+				{{#select tableId}}
+				<option value="">&nbsp;</option>
+				{{#each possibleRollTables}}
+				<option value="{{id}}">{{name}}</option>
+				{{/each}}
+				{{/select}}
+			</select>
+		{{/dc-field}}
+	</ol>
+	{{dc-save}}
+</form>
