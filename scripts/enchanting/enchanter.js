@@ -54,6 +54,7 @@ export async function enchantItem({item, charges, spell, renderSheet=false}) {
 	let nestedData = {
 		...spell.data.data,
 		description: {value:`${item.data.data.description.value}<br/><br/>${spell.data.data.description.value}`, chat: "", unidentified: `${item.data.data.description.value}<br/><br/>Unknown enchantment`},
+		consumableType: "trinket",
 		weight: item.data.data.weight,
 		price: newValue,
 		quantity: 1,
@@ -63,7 +64,7 @@ export async function enchantItem({item, charges, spell, renderSheet=false}) {
 	let newData = {
 		name: newName,
 		permission: item.data.permission,
-		type: item.data.type,
+		type: "consumable",
 		data: nestedData,
 		img: item.data.img,
 		folder: folderID
