@@ -34,7 +34,7 @@ class TokenLootForm extends DCForm {
 
 Hooks.on("actorSheetMenuItems", (add, app, html, data)=>{
 	let actor = app.object
-	if(actor.owner && !actor.isToken) {
+	if(actor.owner && !actor.isToken && !actor.isPC) {
 		add({
 			name: "Loot",
 			icon: '<i class="fas fa-utensils"></i>',
@@ -56,10 +56,8 @@ Hooks.on("createTokenMutate", async (update, {actor, token})=>{
 			log.debug("Items rolled", items, result)
 			return items
 		}))
-		let items = itemGroups.flatMap(i=>i)
+		let items = itemGroups.flatMap(i=>i).map(i=>i.data)
 		log("Giving NPC items", token, items)
-		let oldItems = token.actorData?.items || actor.data.items || []
-		let newItems = [...oldItems, ...items]
-		return {"actorData.items": newItems}
+		return {"items": items}
 	})
 })

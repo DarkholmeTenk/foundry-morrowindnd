@@ -1,5 +1,6 @@
 import { calculateEnchantValueAdd } from "../spells.js";
-import { getLogger, isEqual } from "../util.js";
+import { getLogger } from "../util.js";
+import { isEqual } from "../../../dc-base/scripts/util.js";
 
 const log = getLogger("Enchanter")
 

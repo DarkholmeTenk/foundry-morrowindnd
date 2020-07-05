@@ -1,4 +1,6 @@
 import { getLogger } from "../util.js"
+import { mergeItemData } from "../../../dc-base/scripts/itemMerger.js"
+import { clone } from "../../../dc-base/scripts/util.js"
 
 const log = getLogger("LootSheetCreator")
 const FLAG = "LootedFlag"
@@ -31,9 +33,12 @@ async function lootTokens(lootContainer, tokens) {
 		return tokenItems
 				.filter(i=>!actor.items.get(i.id))
 				.filter(i=>!BlacklistedTypes.includes(i.type))
+				.map(i=>i.data)
 	})
+	let mergedItems = mergeItemData(items)
 	await tokens.forEachAsync((token)=>token.setFlag("morrowindnd", FLAG, {container: lootContainer.id}))
-	await lootContainer.update({"items": items})
+	await lootContainer.token.update({"actorData.items": []})
+	await lootContainer.createOwnedItem(mergedItems)
 }
 
 Hooks.on("actorSheetMenuItems", (add, app)=>{
