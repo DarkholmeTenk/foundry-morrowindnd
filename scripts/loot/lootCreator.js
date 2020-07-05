@@ -38,25 +38,27 @@ async function lootTokens(lootContainer, tokens) {
 
 Hooks.on("actorSheetMenuItems", (add, app)=>{
 	let actor = app.object
-	if(isLootSheet(actor)) {
-		add({
-			name: "Loot Tokens",
-			icon: '<i class="fas fa-shopping-bag"></i>',
-			callback: async ()=>{
-				let selected = canvas.tokens.controlled
-						.filter(t=>canBeLooted(t, actor))
-						.filter(t=>t.actor != actor)
-				await lootTokens(actor, selected)
-			}
-		})
-	}
-	if(actor.isToken && actor.token.getFlag("morrowindnd", FLAG)) {
-		add({
-			name: "Reset Loot Status",
-			icon: '<i class="fas fa-shopping-bag"></i>',
-			callback: async ()=>{
-				await actor.token.unsetFlag("morrowindnd", FLAG)
-			}
-		})
+	if(actor.owner) {
+		if(isLootSheet(actor)) {
+			add({
+				name: "Loot Tokens",
+				icon: '<i class="fas fa-shopping-bag"></i>',
+				callback: async ()=>{
+					let selected = canvas.tokens.controlled
+							.filter(t=>canBeLooted(t, actor))
+							.filter(t=>t.actor != actor)
+					await lootTokens(actor, selected)
+				}
+			})
+		}
+		if(actor.isToken && actor.token.getFlag("morrowindnd", FLAG)) {
+			add({
+				name: "Reset Loot Status",
+				icon: '<i class="fas fa-shopping-bag"></i>',
+				callback: async ()=>{
+					await actor.token.unsetFlag("morrowindnd", FLAG)
+				}
+			})
+		}
 	}
 })
