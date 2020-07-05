@@ -2,7 +2,7 @@
 	"name": "morrowindnd",
 	"title": "morrowindnd",
 	"description": "A module that provides some MorrowinDnD specific functionality",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"author": "shane_booth",
 	"esmodules": [
         "scripts/enchanting/enchantForm.js",
