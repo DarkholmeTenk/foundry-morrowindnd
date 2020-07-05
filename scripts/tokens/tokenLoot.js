@@ -34,10 +34,10 @@ class TokenLootForm extends DCForm {
 
 Hooks.on("actorSheetMenuItems", (add, app, html, data)=>{
 	let actor = app.object
-	if(actor.owner) {
+	if(actor.owner && !actor.isToken) {
 		add({
 			name: "Loot",
-			icon: '<i class="fas utensils"></i>',
+			icon: '<i class="fas fa-utensils"></i>',
 			callback: ()=>{
 				log("Creating Starting Loot Form", actor)
 				new TokenLootForm(actor).render(true)

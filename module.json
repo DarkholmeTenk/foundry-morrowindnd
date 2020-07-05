@@ -8,7 +8,8 @@
         "scripts/enchanting/enchantForm.js",
         "scripts/enchanting/enchantTable.js",
         "scripts/tokens/tokenLoot.js",
-        "scripts/tokens/tokenRace.js"
+		"scripts/tokens/tokenRace.js",
+		"scripts/loot/lootCreator.js"
 	],
 	"languages": [
 		{
