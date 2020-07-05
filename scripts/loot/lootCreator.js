@@ -38,7 +38,7 @@ async function lootTokens(lootContainer, tokens) {
 
 Hooks.on("actorSheetMenuItems", (add, app)=>{
 	let actor = app.object
-	if(actor.owner) {
+	if(game.user.isGM) {
 		if(isLootSheet(actor)) {
 			add({
 				name: "Loot Tokens",
@@ -47,6 +47,7 @@ Hooks.on("actorSheetMenuItems", (add, app)=>{
 					let selected = canvas.tokens.controlled
 							.filter(t=>canBeLooted(t, actor))
 							.filter(t=>t.actor != actor)
+							.filter(t=>!t.actor.isPC)
 					await lootTokens(actor, selected)
 				}
 			})
