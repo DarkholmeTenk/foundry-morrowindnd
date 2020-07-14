@@ -1,6 +1,7 @@
 import { calculateEnchantValueAdd } from "../spells.js";
 import { getLogger } from "../util.js";
 import { isEqual } from "../../../dc-base/scripts/util.js";
+import { setupFolder } from "../../../dc-base/scripts/FolderHelper.js";
 
 const log = getLogger("Enchanter")
 
@@ -21,19 +22,6 @@ export function getRandomCharge() {
 	return Minor
 }
 
-async function setupFolder() {
-	let folder = game.folders.find(i=>i.data.name == "Enchanted Items" && i.data.type == "Item")
-	if(!folder) {
-		log("Creating new folder")
-		folder = await Folder.create({
-			name: "Enchanted Items",
-			type: "Item",
-			parent: null
-		})
-	}
-	return folder.id
-}
-
 export async function enchantItem({item, charges, spell, renderSheet=false}) {
 	let enchantData = {item: item.id, charges: charges, spell: spell.id}
 	let existing = game.items.find(i=>{
@@ -47,7 +35,7 @@ export async function enchantItem({item, charges, spell, renderSheet=false}) {
 		return existing 
 	}
 
-	let folderID = await setupFolder()
+	let folderID = await setupFolder("Enchanted Items")
 	let newName = `${item.data.name} of ${charges.label} ${spell.data.name}`
 	log(`Enchanting item ${newName}`, item, charges, spell)
 	let spellLevel = spell.data.data.level
