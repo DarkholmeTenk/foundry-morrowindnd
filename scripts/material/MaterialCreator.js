@@ -57,6 +57,7 @@ async function createWeapons(referencePrice, weaponType, materials) {
 				_id: null,
 				folder: folderId,
 				name: newName,
+				permission:{default: 2},
 				data: {
 					...baseItem.data.data,
 					description: {

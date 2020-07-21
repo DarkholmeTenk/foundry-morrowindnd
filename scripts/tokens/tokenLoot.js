@@ -2,6 +2,7 @@ import { rollTable } from "../enchanting/enchantTable.js"
 import { getLogger } from "../util.js"
 import { DCForm } from "../../../dc-base/scripts/FormHelper.js"
 import Item5e from "../../../../systems/dnd5e/module/item/entity.js"
+import ActorSheet5e from "../../../../systems/dnd5e/module/actor/sheets/base.js"
 import { CurrencyItem } from "../table/tableGoldHelper.js"
 
 const log = getLogger("NPCCreateToken")
@@ -64,3 +65,36 @@ Hooks.on("createTokenMutate", async (update, {actor, token})=>{
 		return {"items": items, "actorData.data.currency.gp.value": currency}
 	})
 })
+
+function getPack(item) {
+	if(item.compendium) {
+		let c = item.compendium.metadata
+		return `${c.package}.${c.name}`.toLowerCase()
+	}
+}
+
+let onDrop = ActorSheet5e.prototype._onDrop
+ActorSheet5e.prototype._onDrop = async function(event) {
+    // Get dropped data
+    let data;
+    try {
+      data = JSON.parse(event.dataTransfer.getData('text/plain'));
+    } catch (err) {
+      return false;
+    }
+	if ( !data ) return false;
+	
+	if(data.type === "RollTable") {
+		let items = await rollTable(data.id)
+		await items.forEachAsync(async (item)=>{
+			if(item instanceof Item5e) {
+				await this._onDropItem(event, {type: "Item", id: item.id, pack: getPack(item)})
+			} else if(item instanceof CurrencyItem) {
+				let currentGold = this.actor.data.data.currency?.gp?.value || 0
+				await this.actor.update({"data.currency.gp.value": currentGold + item.value})
+			}
+		})
+	} else {
+		onDrop.bind(this)(event)
+	}
+}
