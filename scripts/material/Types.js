@@ -26,6 +26,7 @@ export const WeaponTypes = {
 		"Halberd",
 		"Lance",
 		"Longsword",
+		"Shortsword",
 		"Maul",
 		"Rapier",
 		"Scimitar",

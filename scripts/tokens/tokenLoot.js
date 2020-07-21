@@ -53,7 +53,7 @@ Hooks.on("createTokenMutate", async (update, {actor, token})=>{
 	update(async ()=>{
 		let {rollTableIds = []} = actor.getFlag("morrowindnd", ACTOR_FLAG) || {}
 		let rollResult = (await Promise.all(rollTableIds.map(async ({id: rollTableId, qty})=>{
-			let {result} = new Roll(qty).roll()
+			let result = new Roll(qty).roll().total
 			let items = await Promise.all(Array(parseInt(result)).fill("").map(()=>rollTable(rollTableId)))
 			items = items.flatMap(i=>i)
 			log.debug("Items rolled", items, result)

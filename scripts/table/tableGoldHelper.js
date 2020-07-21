@@ -8,6 +8,6 @@ export class CurrencyItem {
 
 export function goldHelper({args}) {
 	let roll = args.roll || "1d10"
-	let result = parseInt(new Roll(roll).roll().result)
+	let result = parseInt(new Roll(roll).roll().total)
 	return [new CurrencyItem(result)]
 }

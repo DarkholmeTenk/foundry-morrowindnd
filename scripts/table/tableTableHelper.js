@@ -30,7 +30,7 @@ export async function tableHelper({args, filters}) {
 				}
 			} else {
 				let rollString = args.roll || "1"
-				let rollResult = parseInt(new Roll(rollString).roll({}).result)
+				let rollResult = parseInt(new Roll(rollString).roll({}).total)
 				let resultTables = await nAsync(rollResult, ()=>rollTable(table.id))
 				results = resultTables
 						.flatMap(i=>i)
