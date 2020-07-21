@@ -22,6 +22,25 @@ export function getRandomCharge() {
 	return Minor
 }
 
+const valueRarity = [
+	{name: "Common", valueMin: 0},
+	{name: "Uncommon", valueMin: 300},
+	{name: "Rare", valueMin: 1000},
+	{name: "Very Rare", valueMin: 10000},
+	{name: "Legendary", valueMin: 20000},
+	{name: "Artifact", valueMin: 50000},
+]
+
+function getRarity(value) {
+	let result = valueRarity[0]
+	for(let x of valueRarity) {
+		if(value >= x.valueMin) {
+			result = x
+		}
+	}
+	return result.name
+}
+
 export async function enchantItem({item, charges, spell, renderSheet=false}) {
 	let enchantData = {item: item.id, charges: charges, spell: spell.id}
 	let existing = game.items.find(i=>{
@@ -35,7 +54,7 @@ export async function enchantItem({item, charges, spell, renderSheet=false}) {
 		return existing 
 	}
 
-	let folderID = await setupFolder("Enchanted Items")
+	let folderID = await setupFolder(`MorrowinDnD/Enchanted Items/Level ${spell.data.data.level}`)
 	let newName = `${item.data.name} of ${charges.label} ${spell.data.name}`
 	log(`Enchanting item ${newName}`, item, charges, spell)
 	let spellLevel = spell.data.data.level
@@ -48,7 +67,8 @@ export async function enchantItem({item, charges, spell, renderSheet=false}) {
 		price: newValue,
 		quantity: 1,
 		uses: {value: charges.charges, max: charges.charges, per: "day"},
-		armor: item.data.data.armor
+		armor: item.data.data.armor,
+		rarity: getRarity(newValue)
 	}
 	let newData = {
 		name: newName,

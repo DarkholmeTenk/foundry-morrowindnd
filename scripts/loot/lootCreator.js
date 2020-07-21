@@ -25,6 +25,10 @@ function getBaseActor(token) {
 	return game.actors.get(token.data.actorId)
 }
 
+function getCurrency(token) {
+	return token.data.actorData?.data?.currency?.gp?.value || 0
+}
+
 async function lootTokens(lootContainer, tokens) {
 	log.debug("Looting Tokens", lootContainer, tokens)
 	let items = tokens.flatMap(token=>{
@@ -36,8 +40,9 @@ async function lootTokens(lootContainer, tokens) {
 				.map(i=>i.data)
 	})
 	let mergedItems = mergeItemData(items)
+	let currency = tokens.map(token=>getCurrency(token)).reduce((p,c)=>p+c, 0)
 	await tokens.forEachAsync((token)=>token.setFlag("morrowindnd", FLAG, {container: lootContainer.id}))
-	await lootContainer.token.update({"actorData.items": []})
+	await lootContainer.token.update({"actorData.items": [], "actorData.data.currency.gp.value": currency})
 	await lootContainer.createOwnedItem(mergedItems)
 }
 

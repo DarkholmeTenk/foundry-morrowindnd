@@ -1,12 +1,13 @@
 import { getLogger } from "../util.js"
+import { parseArguments } from "./tableHelperUtils.js"
 
 const log = getLogger("TableSpellHelper")
 
 function filter(result, filters) {
 	return filters.every(filter=>{
-		let [prop, value] = filter.split("=")
-		let propValue = getProperty(result.data.data, prop)
-		return propValue == value
+		let {field, compareFunction} = filter
+		let propValue = getProperty(result.data.data, field)
+		return compareFunction(propValue)
 	})
 }
 
@@ -23,12 +24,12 @@ async function getAllSpells() {
 	return allSpells
 }
 
-export async function spellsTable(filters) {
+export async function spellsTable({filters}) {
 	log.debug("Getting random spell from pack", filters)
 	let allResults = await getAllSpells()
 	let filteredResults = allResults.filter(result=>filter(result, filters))
 	log.debug("Filtered spells", filters, filteredResults)
 	let spellIndex = Math.floor(Math.random() * filteredResults.length)
 	log.debug("Returning random spell", spellIndex, filteredResults[spellIndex])
-	return filteredResults[spellIndex]
+	return [filteredResults[spellIndex]]
 }

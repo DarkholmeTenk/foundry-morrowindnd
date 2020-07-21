@@ -1,19 +1,26 @@
 import { spellsTable } from "./tableSpellHelper.js"
 import { getLogger } from "../util.js"
+import { tableHelper } from "./tableTableHelper.js"
+import { goldHelper } from "./tableGoldHelper.js"
+import { parseArguments } from "./tableHelperUtils.js"
+import { itemHelper } from "./tableItemHelper.js"
 
 const log = getLogger("TableHelper")
 
 const TextHelpers = {
-	"@Spells": spellsTable
+	"@Spells": spellsTable,
+	"@Table": tableHelper,
+	"@Gold": goldHelper,
+	"@Item": itemHelper
 }
 
 function getArguments(text) {
 	let results = text.match(/\[([^\]]+)\]/g).map(text=>text.substr(1, text.length - 2))
 	log.debug("Found roll helper arguments", results, text)
-	return results
+	return parseArguments(results)
 }
 
-export async function getRollTableItem({type, text, resultId, collection}) {
+export async function getRollTableItems({type, text, resultId, collection}) {
 	log.debug("Getting roll item", arguments)
 	if(type == 0) {
 		let call = text.split(/\s/,1)
@@ -25,9 +32,9 @@ export async function getRollTableItem({type, text, resultId, collection}) {
 			return result
 		}
 	} else if(type == 1) {
-		return game.items.get(resultId)
+		return [game.items.get(resultId)]
 	} else if(type == 2) {
 		let pack = game.packs.get(collection)
-		return await pack.getEntity(resultId)
+		return [await pack.getEntity(resultId)]
 	}
 }

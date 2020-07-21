@@ -40,14 +40,14 @@ function addDamage(baseItem, damageBonus) {
 async function createWeapons(referencePrice, weaponType, materials) {
 	let weaponTypes = WeaponTypes[weaponType]
 	await weaponTypes.forEachAsyncOrdered(async type=>{
-		let folderId = await setupFolder(`morrowindnd/${weaponType}/${type}`)
+		let folderId = await setupFolder(`MorrowinDnD/${weaponType}/${type}`)
 		let baseItem = await findBaseItem(type)
 		if(!baseItem) {
 			log.error(`Unable to find item [${type}]`)
 			return
 		}
 		let priceMultiplier = baseItem.data.data.price / referencePrice
-		await materials.forEachAsync(async material=>{
+		let newItemData = materials.map(material=>{
 			let materialProps = material.weaponProperties
 			let newName = `${material.name} ${type}`
 			let newPrice = Math.ceil(priceMultiplier * materialProps.averagePrice)
@@ -72,8 +72,9 @@ async function createWeapons(referencePrice, weaponType, materials) {
 			}
 			
 			log.debug(`Creating ${newName}`, baseItem, newPrice, materialProps, itemData)
-			await Item.create(itemData, {temporary: false, renderSheet: false})
+			return itemData
 		})
+		await Item.create(newItemData, {temporary:false, renderSheet: false})
 	})
 }
 
@@ -90,7 +91,7 @@ async function findBasePrice(weaponType) {
 }
 
 function getMaterials(weaponType) {
-	return Materials.filter(m=>m.weaponProperties && m.weaponProperties[weaponType])
+	return Materials.filter(m=>m.weaponProperties && m.weaponProperties[weaponType.toLowerCase()])
 }
 
 Hooks.on("itemSheetMenuItems", async (addMenuItem) => {

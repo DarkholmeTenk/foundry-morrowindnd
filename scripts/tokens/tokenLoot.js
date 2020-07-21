@@ -1,6 +1,8 @@
 import { rollTable } from "../enchanting/enchantTable.js"
 import { getLogger } from "../util.js"
 import { DCForm } from "../../../dc-base/scripts/FormHelper.js"
+import Item5e from "../../../../systems/dnd5e/module/item/entity.js"
+import { CurrencyItem } from "../table/tableGoldHelper.js"
 
 const log = getLogger("NPCCreateToken")
 
@@ -49,15 +51,16 @@ Hooks.on("actorSheetMenuItems", (add, app, html, data)=>{
 Hooks.on("createTokenMutate", async (update, {actor, token})=>{
 	update(async ()=>{
 		let {rollTableIds = []} = actor.getFlag("morrowindnd", ACTOR_FLAG) || {}
-		let itemGroups = await Promise.all(rollTableIds.map(async ({id: rollTableId, qty})=>{
+		let rollResult = (await Promise.all(rollTableIds.map(async ({id: rollTableId, qty})=>{
 			let {result} = new Roll(qty).roll()
 			let items = await Promise.all(Array(parseInt(result)).fill("").map(()=>rollTable(rollTableId)))
 			items = items.flatMap(i=>i)
 			log.debug("Items rolled", items, result)
 			return items
-		}))
-		let items = itemGroups.flatMap(i=>i).map(i=>i.data)
-		log("Giving NPC items", token, items)
-		return {"items": items}
+		}))).flatMap(i=>i)
+		let items = rollResult.filter(i=>i instanceof Item5e).map(i=>i.data)
+		let currency = rollResult.filter(i=>i instanceof CurrencyItem).map(i=>i.value).reduce((p,c)=>p+c,0)
+		log("Giving NPC items", token, items, currency)
+		return {"items": items, "actorData.data.currency.gp.value": currency}
 	})
 })

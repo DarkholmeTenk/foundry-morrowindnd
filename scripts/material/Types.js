@@ -1,5 +1,5 @@
 export const WeaponTypes = {
-	ranged: [
+	Ranged: [
 		"Shortbow",
 		"Light Crossbow",
 
@@ -7,7 +7,7 @@ export const WeaponTypes = {
 		"Heavy Crossbow",
 		"Longbow",
 	],
-	melee: [
+	Melee: [
 		"Club",
 		"Dagger",
 		"Greatclub",
@@ -35,7 +35,12 @@ export const WeaponTypes = {
 	],
 
 	referencePrices: {
-		melee: "Longsword",
-		ranged: "Longbow"
+		Melee: "Longsword",
+		Ranged: "Longbow"
 	}
+}
+
+export const ArmorTypes = {
+	"Light": "Leather Armor",
+	"Medium": "Half plate"
 }

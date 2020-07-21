@@ -10,6 +10,7 @@ export const Materials = [
         description: "A material made from tanned hide",
         lootWeight: 8,
         maxEnchantStrength: 10,
+        rarity: "Common",
         armorProperties: {
             type: ArmorType.LIGHT,
             fullSetAC: 11,
@@ -23,6 +24,7 @@ export const Materials = [
         description: "A material which is constructed by laminating several layers of insect shell glued with organic resins",
         lootWeight: 7,
         maxEnchantStrength: 12,
+        rarity: "Common",
         armorProperties: {
             type: ArmorType.LIGHT,
             fullSetAC: 12,
@@ -35,6 +37,7 @@ export const Materials = [
             damageBonus: 0,
             hurtsGhosts: false,
             averagePrice: 160,
+            weightMult: 0.5,
             melee: true,
             ranged: false
         }
@@ -44,6 +47,7 @@ export const Materials = [
         description: "Netch Leather is a unique Dunmer light armor design with much higher craftsmanship than the typical Imperial Armor of the west.",
         lootWeight: 6,
         maxEnchantStrength: 12,
+        rarity: "Common",
         armorProperties: {
             type: ArmorType.LIGHT,
             fullSetAC: 13,
@@ -57,6 +61,7 @@ export const Materials = [
         description: "Glass weapons and armor are an ornate design: light and flexible, although very difficult to make and expensive. Glass is a lightlootWeight material created using rare metals studded with volcanic glass. The result is stronger than steel due to its ability to absorb and distribute shocks very well.",
         lootWeight: 0.8,
         maxEnchantStrength: 20,
+        rarity: "Very Rare",
         armorProperties: {
             type: ArmorType.LIGHT,
             fullSetAC: 14,
@@ -69,15 +74,17 @@ export const Materials = [
             damageBonus: 1,
             hurtsGhosts: true,
             averagePrice: 16000,
+            weightMult: 0.75,
             melee: true,
             ranged: false
         }
     },
     {
         name: "Bonemold",
-        description: "Bonemold is an expensive medium lootWeight material which can generally only be afforded by Morrowind's House Dunmer. The material is composed of bones which are artificially shaped and assembled before being fixed with resin glues.",
+        description: "Bonemold is an expensive medium weight material which can generally only be afforded by Morrowind's House Dunmer. The material is composed of bones which are artificially shaped and assembled before being fixed with resin glues.",
         lootWeight: 7,
         maxEnchantStrength:10,
+        rarity: "Common",
         armorProperties: {
             type: ArmorType.MEDIUM,
             fullSetAC: 12,
@@ -89,6 +96,7 @@ export const Materials = [
             attackBonus: 0,
             damageBonus: 1,
             hurtsGhosts: false,
+            weightMult: 1,
             averagePrice: 140,
             melee: false,
             ranged: true
@@ -96,9 +104,10 @@ export const Materials = [
     },
     {
         name: "Chainmail",
-        description: "Chainmail armor is composed of small interlocking rings of steel, it makes for a decent medium lootWeight armor.",
+        description: "Chainmail armor is composed of small interlocking rings of steel, it makes for a decent medium weight armor.",
         lootWeight: 7,
         maxEnchantStrength: 10,
+        rarity: "Common",
         armorProperties: {
             type: ArmorType.MEDIUM,
             fullSetAC: 13,
@@ -111,6 +120,7 @@ export const Materials = [
         description: "Silver is typically used to enhance the appearance of the item or to increase its effectiveness against certain creatures and is typically plated on to other cheaper forms of metal.",
         lootWeight: 5,
         maxEnchantStrength: 15,
+        rarity: "Uncommon",
         armorProperties: {
             type: ArmorType.MEDIUM,
             fullSetAC: 14,
@@ -123,6 +133,7 @@ export const Materials = [
             attackBonus: 0,
             damageBonus: 0,
             hurtsGhosts: true,
+            weightMult: 0.9,
             averagePrice: 180,
             melee: true,
             ranged: true
@@ -130,9 +141,10 @@ export const Materials = [
     },
     {
         name: "Orcish",
-        description: "Orcish armor is an ornate, light steel plate design which is worn over cloth padding resulting in a light and comfortable fit when compared to other steel plate designs",
+        description: "Orcish manufacturing is a way of folding and tempering steel in such a way that it can be made more efficient and adds ornate patterns",
         lootWeight: 3,
         maxEnchantStrength: 14,
+        rarity: "Uncommon",
         armorProperties: {
             type: ArmorType.MEDIUM,
             fullSetAC: 15,
@@ -145,6 +157,7 @@ export const Materials = [
             damageBonus: 2,
             hurtsGhosts: false,
             averagePrice: 640,
+            weightMult: 1.25,
             melee: true,
             ranged: false
         }
@@ -154,6 +167,7 @@ export const Materials = [
         description: "Dreugh Armor is a remarkably strong Dunmer Medium Armor created from the carapaces of Dreugh.",
         lootWeight: 1.5,
         maxEnchantStrength: 13,
+        rarity: "Rare",
         armorProperties: {
             type: ArmorType.MEDIUM,
             fullSetAC: 16,
@@ -167,6 +181,7 @@ export const Materials = [
         description: "Iron is one of the most abundant and cheap materials available for the construction of weapons and heavy armor in Morrowind and the rest of Tamriel. Unfortunately it has a heavy lootWeight and bends easily which produces generally poor to medium quality wares.",
         lootWeight: 10,
         maxEnchantStrength: 6,
+        rarity: "Common",
         armorProperties: {
             type: ArmorType.HEAVY,
             fullSetAC: 14,
@@ -179,6 +194,7 @@ export const Materials = [
             damageBonus: 0,
             hurtsGhosts: false,
             averagePrice: 80,
+            weightMult: 0.75,
             melee: true,
             ranged: false
         }
@@ -188,6 +204,7 @@ export const Materials = [
         description: "Steel, a refined form of iron, is another of the more common metals used to produce weapons and heavy armor. Its hardness is greater than that of iron, which leads to higher quality items with about the same lootWeight.",
         lootWeight: 8,
         maxEnchantStrength: 9,
+        rarity: "Common",
         armorProperties: {
             type: ArmorType.HEAVY,
             fullSetAC: 15,
@@ -200,6 +217,7 @@ export const Materials = [
             damageBonus: 0,
             hurtsGhosts: false,
             averagePrice: 120,
+            weightMult: 1,
             melee: true,
             ranged: false
         }
@@ -209,6 +227,7 @@ export const Materials = [
         description: "Dwemer (also known as Dwarven) armor and weapons, though heavier than steel, are highly sought after for their resistance to corrosion, unmatched craftsmanship, their ability to keep an edge, and even just for their rarity. Dwarven items have not been produced since the disappearance of the Dwemer long ago and are truly a treasure whether in the battlefield or on display.",
         lootWeight: 4,
         maxEnchantStrength: 6,
+        rarity: "Rare",
         armorProperties: {
             type: ArmorType.HEAVY,
             fullSetAC: 16,
@@ -222,6 +241,7 @@ export const Materials = [
             damageBonus: 1,
             hurtsGhosts: false,
             averagePrice: 450,
+            weightMult: 1.5,
             melee: true,
             ranged: true
         }
@@ -231,6 +251,7 @@ export const Materials = [
         description: "Ebony weapons and armor are created from a rare form of volcanic glass buried in the lava flows from Vvardenfell's Red Mountain. The items are so-named because of their opaque black, glassy surface. Ebony items are very high quality and are much sought-after.",
         lootWeight: 1,
         maxEnchantStrength: 6,
+        rarity: "Very Rare",
         armorProperties: {
             type: ArmorType.HEAVY,
             fullSetAC: 18,
@@ -243,6 +264,7 @@ export const Materials = [
             damageBonus: 3,
             hurtsGhosts: true,
             averagePrice: 20000,
+            weightMult: 2,
             melee: true,
             ranged: false
         }
@@ -252,6 +274,7 @@ export const Materials = [
         description: "Daedric weapons are made from raw ebony which has been refined using the craft and magical substances of the lesser minions of Oblivion. The process is not a pleasant one for the Daedra involved, and the weapons retain echoes of preternaturally prolonged suffering endured during manufacture. Daedric weapons are the most rare and expensive weapons known in Tamriel.",
         lootWeight: 0.2,
         maxEnchantStrength: 23,
+        rarity: "Legendary",
         armorProperties: {
             type: ArmorType.HEAVY,
             fullSetAC: 20,
@@ -264,6 +287,7 @@ export const Materials = [
             damageBonus: 3,
             hurtsGhosts: true,
             averagePrice: 40000,
+            weightMult: 3,
             melee: true,
             ranged: true
         }
@@ -273,11 +297,13 @@ export const Materials = [
         description: "A simple material harvested from the giant mushrooms across the island",
         lootWeight: 13,
         maxEnchantStrength: 8,
+        rarity: "Common",
         weaponProperties: {
             attackBonus: -1,
             damageBonus: 0,
             hurtsGhosts: false,
             averagePrice: 80,
+            weightMult: 1,
             melee: false,
             ranged: true
         }

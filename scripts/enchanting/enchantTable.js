@@ -1,14 +1,15 @@
 import { getLogger } from "../util.js"
 import { getRandomCharge, enchantItem } from "./enchanter.js"
 import { DCForm } from "../../../dc-base/scripts/FormHelper.js"
-import { getRollTableItem } from "../table/tableHelper.js"
+import { getRollTableItems } from "../table/tableHelper.js"
+import Item5e from "../../../../systems/dnd5e/module/item/entity.js"
 
 const log = getLogger("EnchantTable")
 const FLAG = "enchant_spells"
 
 async function handleEnchant(table, result, item) {
 	let {tableId: enchantTableId} = table.getFlag("morrowindnd", FLAG) || {}
-	if(item && item.data.type==="equipment" && enchantTableId) {
+	if(enchantTableId && item instanceof Item5e && item.data.type==="equipment") {
 		let spells = await rollTable(enchantTableId)
 		let spell = spells[0]
 		log.debug("Found spell", spell, item)
@@ -19,20 +20,21 @@ async function handleEnchant(table, result, item) {
 			return enchanted
 		}
 	}
+	log.debug("Enchantment failed")
+	return item
 }
 
 export async function rollTable(tableId) {
 	let table = game.tables.get(tableId)
 	let roll = table.roll()
 	let items = await Promise.all(roll.results.map(async result=>{
-		let item = await getRollTableItem(result)
-		let enchanted = await handleEnchant(table, result, item)
-		log.debug("Pre/Enchant", item, enchanted)
-		if(enchanted) { return enchanted }
-		return item
+		let items = await getRollTableItems(result)
+		let enchanted = items.mapAsync(item=>handleEnchant(table, result, item))
+		log.debug("Pre/Enchant", items, enchanted)
+		return enchanted
 	}))
 	log.debug("Rolled items", table.name, items)
-	return items.filter(i=>i)
+	return items.flatMap(i=>i).filter(i=>i)
 }
 
 class TableEnchantForm extends DCForm {
