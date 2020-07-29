@@ -1,4 +1,3 @@
-import { parseArguments } from "./tableHelperUtils.js";
 import { rollTable } from "../enchanting/enchantTable.js";
 import { nAsync } from "../util.js";
 

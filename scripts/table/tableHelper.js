@@ -4,6 +4,7 @@ import { tableHelper } from "./tableTableHelper.js"
 import { goldHelper } from "./tableGoldHelper.js"
 import { parseArguments } from "./tableHelperUtils.js"
 import { itemHelper } from "./tableItemHelper.js"
+import { weaponEnchantHelper } from "./tableWeaponEnchantHelper.js"
 
 const log = getLogger("TableHelper")
 
@@ -11,7 +12,8 @@ const TextHelpers = {
 	"@Spells": spellsTable,
 	"@Table": tableHelper,
 	"@Gold": goldHelper,
-	"@Item": itemHelper
+	"@Item": itemHelper,
+	"@WeaponEnchant": weaponEnchantHelper
 }
 
 function getArguments(text) {

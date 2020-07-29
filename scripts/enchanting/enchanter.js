@@ -1,6 +1,6 @@
 import { calculateEnchantValueAdd } from "../spells.js";
 import { getLogger } from "../util.js";
-import { isEqual } from "../../../dc-base/scripts/util.js";
+import { isEqual, clone } from "../../../dc-base/scripts/util.js";
 import { setupFolder } from "../../../dc-base/scripts/FolderHelper.js";
 
 const log = getLogger("Enchanter")
@@ -79,6 +79,28 @@ export async function enchantItem({item, charges, spell, renderSheet=false}) {
 		folder: folderID
 	}
 	log("Creating " + newName, item, spell, newData)
+	let newItem = await Item.create(newData, {temporary: false, renderSheet})
+	await newItem.setFlag("morrowindnd", "enchanter_data", enchantData)
+	return newItem
+}
+
+export async function enchantWeapon({item, weaponEnchant, renderSheet = true}) {
+	let enchantData = {item: item.id, weaponEnchant}
+	let existing = game.items.find(i=>{
+		let enchantedData = i.getFlag("morrowindnd", "enchanter_data")
+		return isEqual(enchantData, enchantedData)
+	})
+	if(existing) {
+		return existing
+	}
+
+	let folderId = await setupFolder(`MorrowinDnD/Enchanted Items/Weapons`)
+	let newData = clone(item.data)
+	newData.folder = folderId
+	newData._id = null
+	weaponEnchant.apply(newData)
+	
+	log("Creating " + newData.name, item, weaponEnchant, newData)
 	let newItem = await Item.create(newData, {temporary: false, renderSheet})
 	await newItem.setFlag("morrowindnd", "enchanter_data", enchantData)
 	return newItem

@@ -1,8 +1,9 @@
 import { getLogger } from "../util.js"
-import { getRandomCharge, enchantItem } from "./enchanter.js"
+import { getRandomCharge, enchantItem, enchantWeapon } from "./enchanter.js"
 import { DCForm } from "../../../dc-base/scripts/FormHelper.js"
 import { getRollTableItems } from "../table/tableHelper.js"
 import Item5e from "../../../../systems/dnd5e/module/item/entity.js"
+import { WeaponEnchantment } from "../table/tableWeaponEnchantHelper.js"
 
 const log = getLogger("EnchantTable")
 const FLAG = "enchant_spells"
@@ -18,6 +19,13 @@ async function handleEnchant(table, result, item) {
 			let enchanted = await enchantItem({item, charges, spell})
 			log("Enchanting", item, spell)
 			return enchanted
+		}
+	}
+	if(enchantTableId && item instanceof Item5e && item.data.type === "weapon") {
+		let weaponEnchants = await rollTable(enchantTableId)
+		let weaponEnchant = weaponEnchants[0]
+		if(weaponEnchant instanceof WeaponEnchantment) {
+			return enchantWeapon({item, weaponEnchant, renderSheet: false})
 		}
 	}
 	log.debug("Enchantment failed")
@@ -75,7 +83,8 @@ Hooks.on("rollTableConfigMenuItems", async (addMenuItem, app)=>{
 			name: "Help",
 			icon: '<i class="fas fa-dice"></i>',
 			callback: async ()=>{
-				log("Item Rolled", await rollTable(app.object._id))
+				let items = await rollTable(app.object._id)
+				log("Item Rolled", items, items.map(i=>i instanceof Item5e ? i.name : i.constructor.name))
 			}
 		})
 	}
