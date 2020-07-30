@@ -2,7 +2,7 @@
 	"name": "morrowindnd",
 	"title": "morrowindnd",
 	"description": "A module that provides some MorrowinDnD specific functionality",
-	"version": "1.1.2",
+	"version": "1.1.4",
 	"author": "shane_booth",
 	"esmodules": [
         "scripts/enchanting/enchantForm.js",
@@ -10,7 +10,8 @@
         "scripts/tokens/tokenLoot.js",
 		"scripts/tokens/tokenRace.js",
 		"scripts/loot/lootCreator.js",
-		"scripts/material/MaterialCreator.js"
+		"scripts/material/MaterialCreator.js",
+		"scripts/tokens/actorLootDrop.js"
 	],
 	"languages": [
 		{

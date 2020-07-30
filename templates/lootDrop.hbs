@@ -1,0 +1,14 @@
+<form>
+	<ol>
+		{{#dc-field "Morrowindnd.LootDrop.Rolls"}}
+		<input name="rolls" value="{{rolls}}" />
+		{{/dc-field}}
+		{{#dc-field "Morrowindnd.LootDrop.Qty"}}
+		<input name="qty" value="{{qty}}" />
+		{{/dc-field}}
+		{{#dc-field "Morrowindnd.LootDrop.Scrolls"}}
+		<input class="flex2" type='checkbox' name='convertSpellsToScrolls' {{ checked convertSpellsToScrolls }} />
+		{{/dc-field}}
+	</ol>
+	{{dc-save}}
+</form>

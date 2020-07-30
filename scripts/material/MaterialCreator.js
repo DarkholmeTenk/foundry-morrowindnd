@@ -97,17 +97,17 @@ function getMaterials(weaponType) {
 
 Hooks.on("itemSheetMenuItems", async (addMenuItem) => {
 	if (game.user.isGM) {
-		addMenuItem({
-			name: "Create Weapons",
-			icon: '<i class="fas fa-hand-sparkles"></i>',
-			callback: async () => {
-				log("Creating Weapons")
-				await Object.keys(WeaponTypes.referencePrices).forEachAsyncOrdered(async (weaponType) => {
-					let basePrice = await findBasePrice(weaponType)
-					let materials = getMaterials(weaponType)
-					createWeapons(basePrice, weaponType, materials)
-				})
-			}
-		})
+		// addMenuItem({
+		// 	name: "Create Weapons",
+		// 	icon: '<i class="fas fa-hand-sparkles"></i>',
+		// 	callback: async () => {
+		// 		log("Creating Weapons")
+		// 		await Object.keys(WeaponTypes.referencePrices).forEachAsyncOrdered(async (weaponType) => {
+		// 			let basePrice = await findBasePrice(weaponType)
+		// 			let materials = getMaterials(weaponType)
+		// 			createWeapons(basePrice, weaponType, materials)
+		// 		})
+		// 	}
+		// })
 	}
 })

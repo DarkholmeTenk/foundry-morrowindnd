@@ -1,4 +1,5 @@
 import { getLogger } from "../util.js"
+import Item5e from "../../../../systems/dnd5e/module/item/entity.js"
 
 const log = getLogger("TableSpellHelper")
 
@@ -15,12 +16,15 @@ async function getAllSpells() {
 	return allSpells
 }
 
-export async function spellsTable({filterItem}) {
+export async function spellsTable({filters, filterItem, args}) {
 	log.debug("Getting random spell from pack", filters)
 	let allResults = await getAllSpells()
 	let filteredResults = allResults.filter(filterItem)
 	log.debug("Filtered spells", filters, filteredResults)
 	let spellIndex = Math.floor(Math.random() * filteredResults.length)
-	log.debug("Returning random spell", spellIndex, filteredResults[spellIndex])
-	return [filteredResults[spellIndex]]
+	let spell = filteredResults[spellIndex]
+	if(args.scroll) {
+		spell = await Item5e.createScrollFromSpell(spell)
+	}
+	return [spell]
 }

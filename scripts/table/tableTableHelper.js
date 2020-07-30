@@ -1,14 +1,7 @@
 import { rollTable } from "../enchanting/enchantTable.js";
 import { nAsync } from "../util.js";
 
-function filter(r, filters) {
-	return filters.every(({field, compareFunction})=>{
-		let prop = getProperty(r, field)
-		return compareFunction(prop)
-	})
-}
-
-export async function tableHelper({args, filters}) {
+export async function tableHelper({args, filterItem}) {
 	if(!args.table) {
 		throw Error("No @table argument specified")
 	} else {
@@ -21,7 +14,7 @@ export async function tableHelper({args, filters}) {
 			if(min) {
 				let i = 0
 				while(results.length < min && i < 20) {
-					let items = (await rollTable(table.id)).filter(i=>filter(i, filters))
+					let items = (await rollTable(table.id)).filter(filterItem)
 					if(items.length > 0) {
 						results.push(...items)
 					}
@@ -34,7 +27,7 @@ export async function tableHelper({args, filters}) {
 				results = resultTables
 						.flatMap(i=>i)
 						.flatMap(i=>i)
-						.filter(i=>filter(i, filters))
+						.filter(filterItem)
 			}
 			let max = args.max || 100
 			return results.slice(0, max)

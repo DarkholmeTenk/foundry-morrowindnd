@@ -5,5 +5,9 @@
 
 	"Morrowindnd.LootEntry.LootTables": "Loot Tables",
 	"Morrowindnd.LootEntry.RollTable": "Roll Table",
-	"Morrowindnd.LootEntry.AddTable": "Add Table"
+	"Morrowindnd.LootEntry.AddTable": "Add Table",
+
+	"Morrowindnd.LootDrop.Rolls": "Number of Rolls",
+	"Morrowindnd.LootDrop.Qty": "Qty of each roll",
+	"Morrowindnd.LootDrop.Scrolls": "Convert Spells to Scrolls"
 }
