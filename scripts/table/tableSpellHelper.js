@@ -3,17 +3,27 @@ import Item5e from "../../../../systems/dnd5e/module/item/entity.js"
 
 const log = getLogger("TableSpellHelper")
 
-let allSpells = null
-async function getAllSpells() {
-	if(allSpells) { return allSpells }
+let allPackSpells = null
+async function loadPackSpells() {
+	if(allPackSpells) { return allPackSpells }
 	let pack = game.packs.find(p=>p.metadata.label == "Spells") || game.packs.find(p=>p.metadata.label == "Spells (SRD)")
 	if(pack) {
 		let index = await pack.getIndex()
-		allSpells = await Promise.all(index.map(i=>pack.getEntity(i._id)))
+		let byName = {}
+		allPackSpells = await Promise.all(index.map(i=>pack.getEntity(i._id)))
 	} else {
-		allSpells = []
+		allPackSpells = []
 	}
-	return allSpells
+	return allPackSpells
+}
+
+async function getAllSpells() {
+	let packSpells = await loadPackSpells()
+	let byName = {}
+	packSpells.forEach(s=>byName[s.name] = s)
+	game.items.filter(i=>i.type === "spell")
+			  .forEach(s=>byName[s.name] = s)
+	return Object.values(byName)
 }
 
 export async function spellsTable({filters, filterItem, args}) {

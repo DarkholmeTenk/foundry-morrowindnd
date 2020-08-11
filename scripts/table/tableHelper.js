@@ -32,11 +32,15 @@ export async function getRollTableItems({type, text, resultId, collection}) {
 			let result = await helper(filters)
 			log.debug("Found result", result)
 			return result
+		} else {
+			return []
 		}
 	} else if(type == 1) {
 		return [game.items.get(resultId)]
 	} else if(type == 2) {
 		let pack = game.packs.get(collection)
 		return [await pack.getEntity(resultId)]
+	} else {
+		log.error("Somehow we got the wrong type", arguments)
 	}
 }
